@@ -26,4 +26,9 @@ public class LegacyOffsetDetector extends OffsetDetector {
 
         return topY;
     }
+
+    @Override
+    public boolean isSittable(Block block) {
+        return block.getType().isSolid();
+    }
 }

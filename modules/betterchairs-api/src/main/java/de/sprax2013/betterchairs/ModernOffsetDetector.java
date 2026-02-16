@@ -13,7 +13,9 @@ class ModernOffsetDetector extends OffsetDetector {
     @Override
     protected double getCenterTopY(Block block) {
         Collection<BoundingBox> boxes = block.getCollisionShape().getBoundingBoxes();
-        double[] samples = {0.375, 0.625};
+        // check 4 points around center, take the lowest result.
+        // checking just the center would mess with stair sit height
+        double[] samples = {0.49, 0.51};
         double minTopY = Double.MAX_VALUE;
 
         for (double x : samples) {
@@ -28,6 +30,16 @@ class ModernOffsetDetector extends OffsetDetector {
             }
         }
 
-        return minTopY == Double.MAX_VALUE ? 1.0 : minTopY;
+        return minTopY == Double.MAX_VALUE ? 1.0 : Math.min(minTopY,1.0); // handle fences, so we don't hover above them.
     }
+
+    @Override
+    public boolean isSittable(Block block) {
+        // if there's not a center to sit on, no good.
+         if (getCenterTopY(block) == 0)
+             return false;
+
+         //
+    }
+
 }

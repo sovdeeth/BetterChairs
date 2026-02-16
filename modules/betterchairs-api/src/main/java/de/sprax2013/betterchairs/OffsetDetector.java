@@ -15,4 +15,13 @@ public abstract class OffsetDetector {
      * where 0 is the block's bottom face and 1 is the top face.
      */
     protected abstract double getCenterTopY(Block block);
+
+    /**
+     * Whether the block can be sat upon. This can be based upon collision meshes, Material solid-ness, or other attributes
+     * based on the specific implementation.
+     * @param block The block to check.
+     * @return Whether a player should be able to sit on the block.
+     */
+    public abstract boolean isSittable(Block block);
+
 }

@@ -68,9 +68,10 @@ public class BetterChairsCommand implements CommandExecutor, TabCompleter {
 
             Block b = null;
 
-            if (p.getLocation().getBlock().getType().isSolid()) {
+            OffsetDetector offsetDetector = getManager().chairNMS.getOffsetDetector();
+            if (offsetDetector.isSittable(p.getLocation().getBlock())) {
                 b = p.getLocation().getBlock();
-            } else if (p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isSolid()) {
+            } else if (offsetDetector.isSittable(p.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
                 b = p.getLocation().getBlock().getRelative(BlockFace.DOWN);
             }
 
